@@ -20,7 +20,6 @@ def ingest_schematics():
                 data["ingested_at"] = datetime.now().isoformat()
                 data["file_path"]= virtual_path
                 insert_or_update(conn, SCH_FILES_TABLE, data)
-
                 summary.append((file, "SUCCESS"))
             except Exception as e:
                 summary.append((file, f"ERROR: {e}"))
