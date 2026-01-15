@@ -18,7 +18,7 @@ def ingest_schematics():
             try:
                 data = parse_schematic(file_path)
                 data["ingested_at"] = datetime.now().isoformat()
-                data["filepath"] = virtual_path
+                data["file_path"] = virtual_path
 
                 insert_or_update(conn, SCH_FILES_TABLE, data)
 
