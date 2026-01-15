@@ -5,8 +5,6 @@ from core.db import get_connection, create_table, insert_or_update
 from config import SCH_FILES_FOLDER, SCH_FILES_TABLE , DATA_DIR  
 from core.path_utils import to_virtual_path          
 
-
-
 def ingest_schematics():
     conn = get_connection()
     create_table(conn, SCH_FILES_TABLE)
