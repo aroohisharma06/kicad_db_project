@@ -17,15 +17,14 @@ def ingest_schematics():
             virtual_path = to_virtual_path(file_path, DATA_DIR)
             try:
                 data = parse_schematic(file_path)
-                data["ingested at"] = datetime.now().isoformat()
-                data["file_path"] = virtual_path
-                insert or update(conn,SCH_FILES_TABLE, data]
-                summary.append((file,"SUCCESS"))
-                                 except Exception as e :
+                data["ingested_at"] = datetime.now().isoformat()
+                data["file_path"]= virtual_path
+
+                insert_or_update(conn, SCH_FILES_TABLE, data)
+
+                summary.append((file, "SUCCESS"))
+            except Exception as e:
                 summary.append((file, f"ERROR: {e}"))
 
-conn.close()
-return summary
-                
-
-               
+    conn.close()
+    return summary
