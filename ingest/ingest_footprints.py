@@ -10,6 +10,10 @@ def ingest_footprints():
     create_table(conn, FOOTPRINTS_TABLE)
 
     summary = []
+
+    if not os.path.exists(FOOTPRINTS_FOLDER):
+        print(f"❌ Error: Folder not found at {os.path.abspath(FOOTPRINTS_FOLDER)}")
+        return summary
    
     # Walk through all subfolders recursively
     for root, dirs, files in os.walk(FOOTPRINTS_FOLDER):
@@ -45,5 +49,14 @@ def ingest_footprints():
     conn.close()
     return summary
 
+if __name__ == "__main__":
+    print(f"Starting test ingestion from: {os.path.abspath(FOOTPRINTS_FOLDER)}")
+    results = ingest_footprints()
+    
+    print("\n--- Ingestion Summary ---")
+    if not results:
+        print("No files were processed. Check if your .kicad_mod files are in the data/footprints folder.")
+    for item, status in results:
+        print(f"{item}: {status}")
 
 
