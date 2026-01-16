@@ -11,6 +11,8 @@ def ingest_footprints():
 
     summary = []
 
+    print(f"DEBUG: Looking for files in: {os.path.abspath(FOOTPRINTS_FOLDER)}")
+   
     # Walk through all subfolders recursively
     for root, dirs, files in os.walk(FOOTPRINTS_FOLDER):
         for file in files:
