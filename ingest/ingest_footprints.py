@@ -44,3 +44,12 @@ def ingest_footprints():
     # Close DB connection
     conn.close()
     return summary
+
+if __name__ == "__main__":
+    print(f"Starting ingestion from: {FOOTPRINTS_FOLDER}")
+    results = ingest_footprints()
+    
+    print("\n--- Ingestion Summary ---")
+    for item, status in results:
+        print(f"{item}: {status}")
+
