@@ -10,8 +10,6 @@ def ingest_footprints():
     create_table(conn, FOOTPRINTS_TABLE)
 
     summary = []
-
-    print(f"DEBUG: Looking for files in: {os.path.abspath(FOOTPRINTS_FOLDER)}")
    
     # Walk through all subfolders recursively
     for root, dirs, files in os.walk(FOOTPRINTS_FOLDER):
@@ -34,24 +32,18 @@ def ingest_footprints():
                     data["filepath"] = virtual_path 
                     # --- CONVERSION END ---
 
+                    print(f"Testing Path: {file} -> {virtual_path}")
+
                     data["ingested_at"] = datetime.now().isoformat()
 
                     # Insert or update in DB
                     insert_or_update(conn, FOOTPRINTS_TABLE, data)
-
                     summary.append((file, "SUCCESS"))
                 except Exception as e:
                     summary.append((file, f"ERROR: {e}"))
-
     # Close DB connection
     conn.close()
     return summary
 
-if __name__ == "__main__":
-    print(f"Starting ingestion from: {FOOTPRINTS_FOLDER}")
-    results = ingest_footprints()
-    
-    print("\n--- Ingestion Summary ---")
-    for item, status in results:
-        print(f"{item}: {status}")
+
 
