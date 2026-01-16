@@ -48,15 +48,10 @@ def ingest_footprints():
     # Close DB connection
     conn.close()
     return summary
-
-if __name__ == "__main__":
-    print(f"Starting test ingestion from: {os.path.abspath(FOOTPRINTS_FOLDER)}")
-    results = ingest_footprints()
     
-    print("\n--- Ingestion Summary ---")
-    if not results:
-        print("No files were processed. Check if your .kicad_mod files are in the data/footprints folder.")
+if __name__ == "__main__":
+    print("--- DEBUG: Starting Footprint Ingestion Test ---")
+    results = ingest_footprints()
+    print(f"--- DEBUG: Processed {len(results)} files ---")
     for item, status in results:
         print(f"{item}: {status}")
-
-
